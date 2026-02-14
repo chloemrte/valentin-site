@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Nous ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<p>
+Depuis le 19 mai 2023 :
+</p>
+
+<h2 id="compteur"></h2>
+
+<br<
+
+<div class="slider">
+<div id="slider"></div>
+<h2 id="message"></h2>
+</div>
+
+<div id="fin">
+Je t'aime mon cœur ❤️
+</div>
+
+<audio id="music" autoplay loop>
+<source src="musique.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+let music = document.getElementById("music");
+
+document.body.addEventListener("click", function(){
+music.play();
+});
+
+let dateDebut = new Date("2023-05-19");
+
+function update(){
+let maintenant = new Date();
+let diff = maintenant - dateDebut;
+
+let jours = Math.floor(diff/(1000*60*60*24));
+let heures = Math.floor(diff/(1000*60*60))%24;
+let minutes = Math.floor(diff/(1000*60))%60;
+
+document.getElementById("compteur").innerHTML =
+jours+" jours "+heures+" heures "+minutes+" minutes";
+}
+
+setInterval(update,1000);
+
+let slider = document.getElementById("slider");
+let message = document.getElementById("message");
+
+let images=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg","photo7.jpg"];
+let i=0;
+
+function showNext(){
+
+if(i < images.length){
+
+slider.innerHTML = `<img src="${images[i]}" width="400">`;
+i++;
+
+setTimeout(showNext,2000);
+
+}
+
+else{
+
+slider.innerHTML = `
+<video id="video" width="400" autoplay muted>
+<source src="souvenir.mp4" type="video/mp4">
+</video>
+`;
+
+let video = document.getElementById("video");
+
+video.onended = function(){
+
+document.querySelector("p").style.display="none";
+document.getElementById("compteur").style.display="none";
+document.getElementById("slider").style.display="none";
+
+let fin = document.getElementById("fin");
+fin.style.opacity="1";
+
+};
+
+}
+}
+
+showNext();
+
+</script>
+
+</body>
+</html>
+
